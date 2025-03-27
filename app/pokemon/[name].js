@@ -106,15 +106,22 @@ const handleRemoveFromFavorites = () => {
       <Image source={{ uri: pokemon.sprites.front_default }} style={styles.image} />
       <Text style={styles.description}>{description}</Text>
 
-      <Text style={styles.section}>Ligne évolutive :</Text>
-      <View style={styles.evolutions}>
-        {evolutions.map((evo) => (
-          <View key={evo.name} style={styles.evoCard}>
-            <Image source={{ uri: evo.image }} style={styles.evoImage} />
-            <Text style={styles.evoName}>{evo.name}</Text>
+      {evolutions.length <= 1 ? (
+        <Text style={styles.section}>
+          {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} est le seul membre de sa ligne évolutive !
+        </Text>
+      ) : (
+        <View><Text style={styles.section}>Ligne évolutive :</Text>
+          <View style={styles.evolutions}>
+            {evolutions.map((evo) => (
+              <View key={evo.name} style={styles.evoCard}>
+                <Image source={{ uri: evo.image }} style={styles.evoImage} />
+                <Text style={styles.evoName}>{evo.name}</Text>
+              </View>
+            ))}
           </View>
-        ))}
-      </View>
+        </View>
+)}
       {!isAlreadyFavorite ? (
         <Animated.View style={[animatedStyle]}>
           <Pressable onPress={handleAddToFavorites} style={styles.favButton}>
